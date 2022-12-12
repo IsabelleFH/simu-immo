@@ -1,0 +1,232 @@
+
+
+:root {
+    --light-blue: #013B83;   /* bleu roi */
+    --dark-blue: #022551;  /* bleu marine */
+    --green: #4BAE08;   /* bouton validation */
+    --dark-green: #286100; /* ombre bouton */
+    --yellow: #DDEE04;       /* chevron */
+    --dark-grey: #8D8686;
+}
+
+
+body{
+    margin: 0;
+    font-family: 'Roboto',sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62,5%;  /**** 1 rem=10 px ***/
+}
+
+.flexContainer{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+header.flexContainer{
+    justify-content: space-between;
+    flex-flow: row nowrap;
+}
+
+header span{
+    margin: 1rem;
+}
+
+header img{
+    max-width: 100px;
+    vertical-align: middle;
+}
+
+
+.bloc-contain{
+    background-color: var(--light-blue);
+    padding: 2rem;
+}
+
+section.simulateur{
+    background-color: var(--dark-blue);
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+section.simulateur div{
+    margin: 2rem 3rem;
+    text-align: center;
+}
+
+section.simulateur p, section.simulateur label{
+    color: white;
+    margin-bottom: 4px;
+    line-height: 2rem;
+    font-size: 1.1rem;
+}
+
+section.simulateur .input-text{
+    font-size: 1.15rem;
+    min-height: 55px;
+    min-width: 100px;
+    padding: 10px;
+    border-radius: 4px;
+    width: 30%;
+    box-shadow: inset 0 -6px #ccc;
+    background: #fff;
+    color: #000;
+    border: none;
+}
+
+section.simulateur .input-text:hover {
+    cursor: pointer;
+    box-shadow: inset 0 -6px #4bae09;
+}
+
+section.simulateur input.simulation{
+    padding: 15px 50px 15px 20px;
+    background: linear-gradient(180deg,#4bae09 0,#3c9500);
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 30px;
+    border: none;
+    box-shadow: inset 0 -6px #286100;
+    border-radius: 4px;
+    color: white;
+}
+
+section.simulateur input.simulation:hover, section.simulateur .range:hover{
+    cursor: pointer;
+    background: var(--green);
+}
+
+section.simulateur input.invalid{ /* si champs invalide */
+    box-shadow: inset 0 -6px red;
+}
+
+#error1, #error2, #error3{ /* message d'erreur */
+    color: red;
+    position: absolute;
+    margin: 1rem;
+}
+
+
+.chevron-right{  /* chevron animé du bouton simuler */
+    color: var(--yellow);
+    animation: move_chevron 1s ease-in-out infinite;
+    height: 1rem;
+    transform: translateX(-30px)
+}
+
+@keyframes move_chevron{
+    from {
+        transform: translateX(-30px)
+    }
+    50%{
+        transform: translateX(-36px)
+    }
+}
+
+#duree{
+    margin-left: 2rem;
+}
+
+div.duree label{
+    display: block;
+}
+
+section div.text-mensualite label, #coutmens {
+    font-size: 1.6rem;
+    display: block;
+    text-align: center;
+}
+
+section.other form{
+    margin: 2rem auto;
+    width: 20rem;
+}
+
+section.other form div{
+    padding: 1rem;
+}
+
+section.other label{
+    border: none;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+
+section.other .dont{
+    color: grey;
+    font-size: 1rem;
+    margin-left: 2rem;
+    font-style: italic;
+}
+
+/** enlever les flèches sur les input number */
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+ 
+/* Chrome */
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button { 
+	-webkit-appearance: none;
+	margin:0;
+}
+ 
+/* Opéra*/
+input::-o-inner-spin-button,
+input::-o-outer-spin-button { 
+	-o-appearance: none;
+	margin:0
+}
+
+footer{
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+footer p {
+    text-align: center;
+}
+
+@media (min-width: 767px){
+
+    .bloc-contain{
+        padding: 4rem;
+    }
+
+    section.simulateur div{
+        margin: 2rem;
+        text-align: left;
+    }
+
+    section.simulateur input.simulation{
+        padding: 15px 50px 15px 45px;
+    }
+
+    section.simulateur .input-text{
+        margin-left: 2rem;
+    }
+
+    div.duree label{
+        display: inline;
+    }
+
+    section.other form{
+        width: 30rem;
+    }
+
+    section.other form div{
+        padding: 1rem 2rem;
+    }
+}

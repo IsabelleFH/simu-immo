@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulateur de prêt immobilier</title>
+<!-- FICHIER CSS -->
+		<link rel="stylesheet" href="./simu-immostyle.css" type="text/css">
+<!-- Utilisation de Jquery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- POLICES -->
+    	<link rel="preconnect" href="https://fonts.googleapis.com">
+    	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="flexContainer">
+        <a href="dispofi.com" alt="Accueil">
+            <figure>
+                <img src="./img/logo-dispofi.png" alt="Logo Dispofi">
+            </figure>
+         </a>
+   
+            <span>Le simulateur immobilier par
+                    <img src="https://mutuelle.dispofi.fr/comparateur/assets/img/logo-disposur1.jpg" alt="Logo Disposur">
+            </span>
+  
+    </header>
+    <div class="bloc-contain">
+    <section class="flexContainer simulateur">
+        <form name="form1">
+            <div class="montant">
+                <label for="montant">Montant du prêt :</label>
+                <input type="number" class="input-text" id="montant" name="montant" required>
+                <label for="montant">€</label>
+                <span id="error1"></span>
+            </div>
+ 
+
+            <div class="duree">
+                <label for="duree">Durée du prêt :</label>
+                <input type="range" id="duree" name="duree" value="2" class="range" min="2" max="30" required>
+                <label for="duree">ans</label>
+            </div>
+            <div class="interet">
+                <label for="interet">Taux d'intérêt :</label>
+                <input type="number" class="input-text" id="interet" name="interet" step="any"required>
+                <label for="interet">%</label>
+                <span id="error2"></span>
+            </div>
+            <div class="assurance">
+                <label for="assurance">Taux d'assurance :</label>
+                <input type="number" class="input-text" id="assurance" name="assurance" step="any" required>
+                <label for="assurance">%</label>
+                <span id="error3"></span>
+            </div>
+            <div>
+                <input type="button" class="simulation" value="Simuler">
+                <svg role="img" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" class="chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"></path></svg>
+            </div>
+            
+        </form>
+        <div class="text-mensualite">
+            <label for="mensualite" id="mensualite">Votre mensualité sera de</label>
+            <p id="coutmens"></p>
+        </div>
+    </section>
+</div>
+<section class="other">
+<form name="form2">
+    <div>
+        <label for="pret">Montant de votre prêt : <span id="pret"></span></label>
+    </div>
+    <div>
+        <label for="pret">Votre mensualité : <span id="mensualite-final"></span></label>
+    </div>
+    <div>
+        <label for="total">Coût total du crédit : <span id="total"></span></label>
+    </div>
+
+    <div class="dont">
+        <label for="cout-interet">- dont intérêts : <span id="cout-interet"></span></label>
+
+    </div>
+
+    <div class="dont">
+        <label for="cout-assur">- dont assurance : <span id="cout-assur"></span></label>
+
+    </div>
+</form>
+</section>
+<footer>
+    <p>   
+        Disposur.fr - votre courtier en mutuelles santé | Mentions légales | CGU | Comment ça marche | Données personnelles
+    </p> 
+</footer>
+</body>
+<script>
+        $(function() {
+        $('.range').next().text('2 ans'); // Valeur par défaut
+        $('.range').on('input', function() {
+            var dureeP = $(this).val();
+            $(this).next().text(dureeP+' ans');
+  
+    });
+
+    var btn = $('.simulation');
+    var coutinteret = $('#cout-interet');
+    var coutassurance = $('#cout-assur');
+    var totalcredit = $('#total');
+
+       btn.click(function() {
+
+        var dureeP = $('.range').val();
+        var montantM = form1.montant.value;
+        var tauxinteret = form1.interet.value;
+        var tauxassur = form1.assurance.value;
+
+        if (montantM == ''){
+            $('#montant').addClass('invalid');
+            document.getElementById("error1").innerHTML = 'Veuillez remplir ce champ.';
+        }
+        
+        else if (tauxinteret == ''){
+            $('#interet').addClass('invalid');
+            document.getElementById("error2").innerHTML = 'Veuillez remplir ce champ.';
+        }
+
+        else if (tauxassur == ''){
+            $('#assurance').addClass('invalid');
+            document.getElementById("error3").innerHTML = 'Veuillez remplir ce champ.';
+        }
+
+        else {
+
+            document.getElementById("error1").innerHTML = '';
+            document.getElementById("error2").innerHTML = '';
+            document.getElementById("error3").innerHTML = '';
+            $('input.input-text').removeClass('invalid');
+
+            var totalcredit = parseInt((((tauxinteret * montantM)/100) + (((tauxassur * montantM)/100) * dureeP)));
+            var coutmens = ((parseFloat(montantM)) + (parseFloat(totalcredit))) / (12 * (parseFloat(dureeP)));
+
+        document.getElementById("coutmens").innerHTML = parseInt(coutmens) + '€';
+
+        document.getElementById("pret").innerHTML = montantM + '€';
+         document.getElementById("mensualite-final").innerHTML = parseInt(coutmens) + '€ / mois';
+
+        document.getElementById("total").innerHTML = totalcredit + '€';
+        document.getElementById("cout-interet").innerHTML = parseInt(((tauxinteret * montantM)/100)) + '€';
+        document.getElementById("cout-assur").innerHTML = parseInt((((tauxassur * montantM)/100) * dureeP)) + '€';
+
+        }
+
+        });
+
+    });
+
+</script>
+</html>
